@@ -17,6 +17,8 @@
                 {% else %}
                 <a href="/undone/{{ t.id }}">Undone</a> 
                 {% endif %}
+
+                <a href="/delete/{{ t.id }}">Delete</a>
             </td>
         </tr>
         {% endfor %}
