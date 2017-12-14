@@ -3,7 +3,7 @@
         <tr>
             <td>Content</td>
             <td>Time</td>
-            <td>Status</td>
+            <td>Operation</td>
         </tr>
     </thead>
     <tbody>
@@ -11,7 +11,13 @@
         <tr>
             <td>{{ t.content }}</td>
             <td>{{ t.time }}</td>
-            <td>{{ t.status }}</td>
+            <td>
+                {% if t.status == 0 %}
+                <a href="/done/{{ t.id }}">Done</a> 
+                {% else %}
+                <a href="/undone/{{ t.id }}">Undone</a> 
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>
