@@ -4,22 +4,25 @@
 
 from app import app
 from flask import render_template,request
-from app.models import Todo
+from app.models import Todo,TodoForm
 
 
 @app.route('/')
 def index():
+    form = TodoForm(request.form)
     todos = Todo.objects.all()
-    return render_template("index.html", todos=todos)
+    return render_template("index.html", todos=todos, form=form)
 
 @app.route('/add', methods=['POST', ])
 def add():
-    content = request.form.get('content')
-    todo = Todo(content = content)
-    todo.save()
+    form = TodoForm(request.form)
+    if form.validate():
+        content = form.content.data
+        todo = Todo(content=content)
+        todo.save()
 
     todos = Todo.objects.all()
-    return render_template("index.html", todos=todos)
+    return render_template("index.html",  todos=todos, form=form)
 
 @app.route('/done/<string:todo_id>')
 def done(todo_id):
